@@ -15,6 +15,10 @@ from zope import component
 import nti.i18n
 from nti.i18n.locales.interfaces import ICcTLDInformation
 
+try:
+    unicode
+except NameError:
+    unicode = str
 
 class TestConfiguredTLDUtility(unittest.TestCase):
 
@@ -27,7 +31,8 @@ class TestConfiguredTLDUtility(unittest.TestCase):
         for cc in available:
             self.assertIn(cc, with_lang)
 
-        self.assertEqual(["en"], info.getLanguagesForTLD('us'))
+        self.assertEqual([u"en"], info.getLanguagesForTLD('us'))
+        self.assertIsInstance(info.getLanguagesForTLD('us')[0], unicode)
 
         # Bad tlds
         self.assertRaises(KeyError, info.getLanguagesForTLD, __name__)

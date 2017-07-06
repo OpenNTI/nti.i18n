@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 
 
 TESTS_REQUIRE = [
+    'zope.configuration',
     'zope.testrunner',
 ]
 
@@ -43,7 +44,6 @@ setup(
     install_requires=[
         'setuptools',
         'zope.component',
-        'zope.configuration',
         'zope.interface',
         'zope.cachedescriptors',
     ],

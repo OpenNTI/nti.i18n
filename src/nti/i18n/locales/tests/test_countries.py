@@ -15,6 +15,10 @@ from zope import component
 import nti.i18n.locales
 from nti.i18n.locales.interfaces import ICountryAvailability
 
+try:
+    unicode
+except NameError:
+    unicode = str
 
 class TestConfiguredCountryUtility(unittest.TestCase):
 
@@ -25,3 +29,7 @@ class TestConfiguredCountryUtility(unittest.TestCase):
         self.assertIn(u'us', availability.getAvailableCountries())
         self.assertIn(u"us", availability.getCountries())
         self.assertIn(u'us', [x[0] for x in availability.getCountryListing()] )
+
+        self.assertIsInstance(
+            availability.getCountries()[u'us'][u'name'],
+            unicode)

@@ -13,9 +13,8 @@ include *.txt
 
 recursive-include src *.zcml
 recursive-include src *.json
+recursive-include src *.txt
 
-recursive-include doc *.py
-recursive-include doc *.rst
-recursive-include doc Makefile
-recursive-exclude doc changelog.rst
-recursive-include src *.zcml
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs Makefile
