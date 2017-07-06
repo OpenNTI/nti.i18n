@@ -36,3 +36,31 @@ class ICountryAvailability(_ICountryAvailability):
         """
         Return a sequence of unicode country code and country name tuples.
         """
+
+
+try:
+    from plone.i18n.locales.interfaces import ICcTLDInformation as _ICcTLDInformation
+except ImportError:
+    # Not on Py3
+    _ICcTLDInformation = Interface
+
+class ICcTLDInformation(_ICcTLDInformation):
+    """
+    A list of country code top level domains and their relevant
+    languages (when known).
+    """
+
+    def getAvailableTLDs():
+        """
+        Return a sequence of country code top level domains.
+        """
+
+    def getTLDs():
+        """
+        Return a dictionary of known ccTLDs and their languages.
+        """
+
+    def getLanguagesForTLD(tld):
+        """
+        Return the relevant languages for a top level domain as a sequence.
+        """

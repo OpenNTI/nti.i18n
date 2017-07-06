@@ -2,7 +2,6 @@
 """
 Implementation of country data.
 
-
 """
 
 from __future__ import print_function, absolute_import, division
@@ -25,6 +24,14 @@ class CountryAvailability(object):
 
     @Lazy
     def _countrylist(self):
+        # This is a dictionary of dictonaries:
+        #
+        # 'country-code' : {u'name' : 'English name', u'flag' : u'/++resource++country-flags/*.gif'}
+        #
+        # This list follows ISO 3166-1. In addition the following reservations are
+        # part of the list for historical reasons: an.
+        # It was initially based on data distributed with plone.i18n 3.0.7.
+
         country_bytes = pkg_resources.resource_string(__name__, 'countries.json')
         country_str = country_bytes.decode('utf-8')
         return json.loads(country_str)

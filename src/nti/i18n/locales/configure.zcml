@@ -9,4 +9,9 @@
         factory=".countries.CountryAvailability"
         />
 
+    <utility
+        provides=".interfaces.ICcTLDInformation"
+        factory=".cctld.CcTLDInformation" />
+
+
 </configure>
