@@ -3,7 +3,7 @@
 =========
 
 
-1.1.0 (unreleased)
+1.0.0 (2017-07-06)
 ==================
 
 - Initial PyPI release. This implements a subset of the ``plone.i18n``
