@@ -15,6 +15,8 @@ from zope import component
 import nti.i18n
 from nti.i18n.locales.interfaces import ICcTLDInformation
 
+from . import skipIfNoPlone
+
 try:
     unicode
 except NameError:
@@ -36,3 +38,10 @@ class TestConfiguredTLDUtility(unittest.TestCase):
 
         # Bad tlds
         self.assertRaises(KeyError, info.getLanguagesForTLD, __name__)
+
+    @skipIfNoPlone
+    def test_lookup_utility_with_plone_iface(self):
+        from plone.i18n.locales.interfaces import ICcTLDInformation as IPlone
+        from nti.i18n.locales.cctld import CcTLDInformation
+        utility = component.getUtility(IPlone)
+        self.assertIsInstance(utility, CcTLDInformation)

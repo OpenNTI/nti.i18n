@@ -20,7 +20,7 @@ setup(
     long_description=_read('README.rst'),
     url="https://github.com/NextThought/nti.i18n",
     license='Apache',
-    keywords='Site management',
+    keywords='i18n l10n zope component iana data locales',
     classifiers=[
         'Intended Audience :: Developers',
         'Natural Language :: English',
@@ -49,5 +49,16 @@ setup(
     ],
     extras_require={
         'test': TESTS_REQUIRE,
+        'test:python_version == "2.7"': [
+            # Not ported to Py3 yet; Plus, version 3 adds hard dep on
+            # Products.CMFCore/Zope2 that we don't want. So long as we
+            # don't try to load its configuration, we can access its
+            # interfaces, though, on any version of Python. We just
+            # keep it here to avoid having to add 'pragma: no cover' to the
+            # conditional imports.
+            'plone.i18n < 3.0',
+            'zope.browserresource',  # Used by plone.i18n implicitly
+
+        ],
     },
 )
