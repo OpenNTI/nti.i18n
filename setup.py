@@ -20,7 +20,7 @@ setup(
     long_description=_read('README.rst'),
     url="https://github.com/NextThought/nti.i18n",
     license='Apache',
-    keywords='Site management',
+    keywords='i18n l10n zope component iana data locales',
     classifiers=[
         'Intended Audience :: Developers',
         'Natural Language :: English',
