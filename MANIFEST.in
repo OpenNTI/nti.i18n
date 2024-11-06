@@ -8,7 +8,7 @@ include TODO
 include babel.cfg
 include nose2.cfg
 include tox.ini
-include .travis.yml
+include *.yml
 include *.txt
 include .pylintrc
 
