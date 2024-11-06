@@ -4,11 +4,11 @@ Implementation of country data.
 
 """
 
-from __future__ import print_function, absolute_import, division
 __docformat__ = "restructuredtext en"
 
 import json
-import pkg_resources
+from types import MappingProxyType as FrozenMap
+from importlib import resources
 
 from zope.interface import implementer
 from zope.cachedescriptors.property import Lazy
@@ -30,11 +30,14 @@ class CountryAvailability(object):
         #
         # This list follows ISO 3166-1. In addition the following reservations are
         # part of the list for historical reasons: an.
-        # It was initially based on data distributed with plone.i18n 3.0.7.
+        # It was initially based on data distributed with plone.i18n 5.0.3.
 
-        country_bytes = pkg_resources.resource_string(__name__, 'countries.json')
-        country_str = country_bytes.decode('utf-8')
-        return json.loads(country_str)
+        country_str = resources.read_text(__name__, 'countries.json')
+        return FrozenMap({
+            k: FrozenMap(v)
+            for k, v
+            in json.loads(country_str).items()
+        })
 
     def getAvailableCountries(self):
         return self._countrylist.keys()
@@ -43,4 +46,4 @@ class CountryAvailability(object):
         return self._countrylist.copy()
 
     def getCountryListing(self):
-        return [(code, data[u'name']) for code, data in self._countrylist.items()]
+        return [(code, data['name']) for code, data in self._countrylist.items()]
