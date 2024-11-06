@@ -10,6 +10,7 @@ include nose2.cfg
 include tox.ini
 include .travis.yml
 include *.txt
+include .pylintrc
 
 recursive-include src *.zcml
 recursive-include src *.json

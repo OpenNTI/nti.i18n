@@ -3,10 +3,14 @@
 =========
 
 
-1.0.1 (unreleased)
+1.1.0 (unreleased)
 ==================
 
-- Nothing changed yet.
+- Drop support for Python < 3.10.
+- Add support for Python versions up to 3.13, the current version.
+- Use native namespace packages.
+- Make ``plone.i18n`` an optional dependency with the ``plone`` extra.
+- Update included data files (TLDs and languages) to the current versions.
 
 
 1.0.0 (2017-07-06)

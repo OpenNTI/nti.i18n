@@ -1,10 +1,12 @@
 import codecs
-from setuptools import setup, find_packages
+from setuptools import setup
+from setuptools import find_namespace_packages
 
 
 TESTS_REQUIRE = [
     'zope.configuration',
     'zope.testrunner',
+    'coverage',
 ]
 
 def _read(fname):
@@ -25,40 +27,33 @@ setup(
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Framework :: Zope3',
     ],
     zip_safe=True,
-    packages=find_packages('src'),
+    packages=find_namespace_packages(where='src'),
     package_dir={'': 'src'},
     include_package_data=True,
-    namespace_packages=['nti'],
     tests_require=TESTS_REQUIRE,
     install_requires=[
-        'setuptools',
         'zope.component',
         'zope.interface',
         'zope.cachedescriptors',
+        # plone.i18n drags in Products.CMFCore, which
+        # in turn brings in a whole lot of stuff we don't want or need,
+        # almost all of it legacy. Sigh.
+        # 'plone.i18n',
     ],
     extras_require={
         'test': TESTS_REQUIRE,
-        'test:python_version == "2.7"': [
-            # Not ported to Py3 yet; Plus, version 3 adds hard dep on
-            # Products.CMFCore/Zope2 that we don't want. So long as we
-            # don't try to load its configuration, we can access its
-            # interfaces, though, on any version of Python. We just
-            # keep it here to avoid having to add 'pragma: no cover' to the
-            # conditional imports.
-            'plone.i18n < 3.0',
-            'zope.browserresource',  # Used by plone.i18n implicitly
-
-        ],
+        'plone': [
+            'plone.i18n',
+        ]
     },
 )

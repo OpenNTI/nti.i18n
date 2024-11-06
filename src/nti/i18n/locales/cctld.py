@@ -4,13 +4,11 @@ Implementation of country-code language information.
 
 """
 
-from __future__ import print_function, unicode_literals, absolute_import, division
 __docformat__ = "restructuredtext en"
 
-logger = __import__('logging').getLogger(__name__)
-
 import json
-import pkg_resources
+from importlib import resources
+
 
 from zope.interface import implementer
 from zope.cachedescriptors.property import Lazy
@@ -34,15 +32,18 @@ class CcTLDInformation(object):
         # This is encoded in IDNA, but python fails to decode
         # when the prefix, XN--, is capitalized. That's OK, we have to
         # lower-case things anyway.
-        tlds_bytes = pkg_resources.resource_string(__name__, 'tlds-alpha-by-domain.txt')
-        tlds_bytes_lower = tlds_bytes.lower()
-        tlds_str = tlds_bytes_lower.decode('idna')
-        return tlds_str.splitlines()
+        tlds_bytes = resources.read_binary(__name__, 'tlds-alpha-by-domain.txt')
+        tld_strs = [
+            x.lower().decode('idna')
+            for x
+            in tlds_bytes.splitlines()
+            if not x.strip().startswith(b'#')
+        ]
+        return tuple(tld_strs)
 
     @Lazy
     def _language_map(self):
-        language_bytes = pkg_resources.resource_string(__name__, 'tlds.json')
-        language_str = language_bytes.decode('ascii')
+        language_str = resources.read_text(__name__, 'tlds.json')
         return json.loads(language_str)
 
     def getAvailableTLDs(self):
