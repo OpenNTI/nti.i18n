@@ -4,7 +4,9 @@ on: [push, pull_request]
 
 env:
   PYTHONHASHSEED: 1042466059
-  ZOPE_INTERFACE_STRICT_IRO: 1
+  # plone.i18n has bad IROs.
+  # ZOPE_INTERFACE_STRICT_IRO: 1
+  ZOPE_INTERFACE_WARN_BAD_IRO: 1
 
 
 jobs:
