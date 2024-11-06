@@ -52,6 +52,11 @@ setup(
     ],
     extras_require={
         'test': TESTS_REQUIRE,
+        'docs': [
+            'sphinx',
+            'sphinx_rtd_theme',
+            'repoze.sphinx.autointerface',
+        ],
         'plone': [
             'plone.i18n',
         ]
