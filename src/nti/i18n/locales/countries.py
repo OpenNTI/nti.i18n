@@ -31,8 +31,8 @@ class CountryAvailability(object):
         # This list follows ISO 3166-1. In addition the following reservations are
         # part of the list for historical reasons: an.
         # It was initially based on data distributed with plone.i18n 5.0.3.
-
-        country_str = resources.read_text(__name__, 'countries.json')
+        # Prior to 3.12, you must use a package, not a module.
+        country_str = resources.read_text(__name__.rsplit('.', 1)[0], 'countries.json')
         return FrozenMap({
             k: FrozenMap(v)
             for k, v
