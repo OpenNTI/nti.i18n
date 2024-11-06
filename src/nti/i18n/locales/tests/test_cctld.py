@@ -3,8 +3,6 @@
 """
 Tests for locale data.
 """
-
-from __future__ import print_function, absolute_import, division
 __docformat__ = "restructuredtext en"
 
 import unittest
@@ -17,11 +15,6 @@ from nti.i18n.locales.interfaces import ICcTLDInformation
 
 from . import skipIfNoPlone
 
-try:
-    unicode
-except NameError:
-    unicode = str
-
 class TestConfiguredTLDUtility(unittest.TestCase):
 
     layer = ZCMLFileLayer(nti.i18n, zcml_file='configure.zcml')
@@ -33,14 +26,15 @@ class TestConfiguredTLDUtility(unittest.TestCase):
         for cc in available:
             self.assertIn(cc, with_lang)
 
-        self.assertEqual([u"en"], info.getLanguagesForTLD('us'))
-        self.assertIsInstance(info.getLanguagesForTLD('us')[0], unicode)
+        self.assertEqual(["en"], info.getLanguagesForTLD('us'))
+        self.assertIsInstance(info.getLanguagesForTLD('us')[0], str)
 
         # Bad tlds
         self.assertRaises(KeyError, info.getLanguagesForTLD, __name__)
 
     @skipIfNoPlone
     def test_lookup_utility_with_plone_iface(self):
+        # pylint:disable=import-error
         from plone.i18n.locales.interfaces import ICcTLDInformation as IPlone
         from nti.i18n.locales.cctld import CcTLDInformation
         utility = component.getUtility(IPlone)

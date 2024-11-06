@@ -4,15 +4,15 @@ Interfaces related to localization.
 
 """
 
-from __future__ import print_function, absolute_import, division
 __docformat__ = "restructuredtext en"
 
+# pylint:disable=no-method-argument,no-self-argument
 
 from zope.interface import Interface
 
 try:
     from plone.i18n.locales.interfaces import ICountryAvailability as _ICountryAvailability
-except ImportError:
+except ModuleNotFoundError:
     # Not on Py3
     _ICountryAvailability = Interface
 
@@ -40,7 +40,7 @@ class ICountryAvailability(_ICountryAvailability):
 
 try:
     from plone.i18n.locales.interfaces import ICcTLDInformation as _ICcTLDInformation
-except ImportError:
+except ModuleNotFoundError:
     # Not on Py3
     _ICcTLDInformation = Interface
 
