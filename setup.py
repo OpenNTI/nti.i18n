@@ -56,4 +56,5 @@ setup(
             'plone.i18n',
         ]
     },
+    python_requires=">= 3.10",
 )

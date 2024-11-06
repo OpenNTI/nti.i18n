@@ -30,20 +30,24 @@ class CcTLDInformation(object):
         # Top level domain list taken from
         # http://data.iana.org/TLD/tlds-alpha-by-domain.txt
         # This is encoded in IDNA, but python fails to decode
-        # when the prefix, XN--, is capitalized. That's OK, we have to
+        # when the prefix, XN--, is capitalized (at least in old versions).
+        # That's OK, we have to
         # lower-case things anyway.
-        tlds_bytes = resources.read_binary(__name__, 'tlds-alpha-by-domain.txt')
+        # Prior to 3.12, you must use a package, not a module.
+        tlds_bytes = resources.read_binary(__name__.rsplit('.', 1)[0], 'tlds-alpha-by-domain.txt')
         tld_strs = [
             x.lower().decode('idna')
             for x
             in tlds_bytes.splitlines()
+            # In 3.12+, it refuses to parse long lines, breaking
+            # on the header.
             if not x.strip().startswith(b'#')
         ]
         return tuple(tld_strs)
 
     @Lazy
     def _language_map(self):
-        language_str = resources.read_text(__name__, 'tlds.json')
+        language_str = resources.read_text(__name__.rsplit('.', 1)[0], 'tlds.json')
         return json.loads(language_str)
 
     def getAvailableTLDs(self):
