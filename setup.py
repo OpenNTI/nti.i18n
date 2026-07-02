@@ -15,7 +15,7 @@ def _read(fname):
 
 setup(
     name='nti.i18n',
-    version='1.2.0',
+    version='1.2.1.dev0',
     author='Jason Madden',
     author_email='jason@nextthought.com',
     description="i18n and L10n data and interfaces",
